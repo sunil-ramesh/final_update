@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Event</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+ <header class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <%= link_to "", '#', id: "logo" %>
+        <nav>
+       
+
+          <ul class="nav navbar-nav navbar-right">
+          <li> 
+
+<% if current_user.present?%>
+ <%= link_to User.find(current_user.id).first_name.upcase+" "+User.find(current_user.id).last_name.upcase %></li>
+ <%= link_to "logout", new_logout_path,method: :delete,
+                                 class: "btn btn-lg btn-primary" %>
+<% else %>
+            <%= link_to "signup", user_new_path,
+                                     class: "btn btn-lg btn-primary" %>
+<% end %>
+     
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="container">
+      <%= yield %>
+    </div>
+
+</body>
+</html>

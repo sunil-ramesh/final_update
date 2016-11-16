@@ -1,0 +1,74 @@
+<div class="modal-dialog">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title"></h4>
+    </div>
+    <div class="modal-body">
+      
+       
+       <center><h1>Create new event</h1></center><div class="row">
+<div class="col-md-6 col-md-offset-3">
+<div class="well">
+  <%= form_for :event_action, url: action_create_path do |f| %>
+        <%= f.label :title %>
+    <%= f.text_field :event_title, class: "form-control" ,required: true%>          <%= f.label :venu %>
+    <%= f.text_field :venue, class: "form-control",required: true %>      <%= f.label :description %>
+    <%= f.text_area :description, size: "10x3", class: "form-control",required: true %>      <%= f.label :event_date %>
+    <div class="datetime_select">
+      <%= select_month Time.now, prefix: :action,
+                                 field_name: :"date(2i)",
+                                 class: "form-control" %> /
+      <%= select_day Time.now, prefix: :event,
+                               field_name: :"date(3i)",
+                               class: "form-control" %> /
+      <%= select_year Time.now, prefix: :event,
+                                field_name: :"date(1i)",
+                                start_year: Time.now.year - 1,
+                                class: "form-control" %>
+    </div>
+     <%= f.label :event_time %>
+    <div class="datetime_select">
+    <%= select_hour 12, prefix: :action,
+                                field_name: :"event_date(4i)",
+                                ampm: true,
+                                class: "form-control" %> :
+      <%= select_minute 0, prefix: :event,
+                                  field_name: :"date(5i)",
+                                  class: "form-control" %>
+     </div>
+ <br>
+
+     <%= f.fields_for :participants do |e|%>
+         <% User.all.each do |d|%>
+         <%= check_box_tag "participant[]", d.id%>
+         <%= d.first_name %><br>
+
+         <% end %>
+         <% end %>
+         <p>
+  <%= f.label :status %><br />
+  <%= f.select :status, ['open', 'closed']%>
+</p>
+    <%= f.submit "Create event", class: "btn btn-primary" %>
+  <% end %>
+</div>
+</div>
+</div>
+
+
+       </div>
+     </div>
+   </div>
+   <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">open</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  </div>
+</div>
+
+</div>
+
+
+

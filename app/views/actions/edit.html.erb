@@ -1,0 +1,101 @@
+<div class="container">
+<% if current_user.id==@event_action.owner_id%>
+<center><h1>Edit action</h1></center><div class="row">
+<div class="col-md-6 col-md-offset-3">
+<div class="well">
+<%= form_for :event_action, url:action_edit_path(@event_action),method: :put do |f| %>
+      <%= f.label :Title %>
+  <%= f.text_field :event_title, class: "form-control" %>          <%= f.label :venue %>
+  <%= f.text_field :venue, class: "form-control" %>      <%= f.label :description %>
+  <%= f.text_area :description, size: "10x3", class: "form-control" %>
+  <%= f.label :participants %><br /></p> 
+   <p>
+ <ul>
+<% User.all.each do |d|%>
+        <%= check_box_tag "participant[]", d.id%>
+        <%= d.first_name %><br>
+
+<% end %>
+</ul>
+</p>
+       <%= f.label :Date %>
+  <div class="datetime_select">
+    <%= select_month Time.now, prefix: :action,
+                               field_name: :"date(2i)",
+                               class: "form-control" %> /
+    <%= select_day Time.now, prefix: :action,
+                             field_name: :"date(3i)",
+                             class: "form-control" %> /
+    <%= select_year Time.now, prefix: :action,
+                              field_name: :"date(1i)",
+                              start_year: Time.now.year - 1,
+                              class: "form-control" %>
+  </div><br>
+   <%= f.label :action_time %>
+  <div class="datetime_select">
+  <%= select_hour 12, prefix: :action,
+                              field_name: :"date(4i)",
+                              ampm: true,
+                              class: "form-control" %> :
+    <%= select_minute 0, prefix: :action,
+                                field_name: :"date(5i)",
+                                class: "form-control" %>
+   </div>
+<br>
+  <%= f.submit "Create action", class: "btn btn-primary" %>
+<% end %>
+</div>
+</div>
+</div>
+
+  
+<% else %>
+<center><h1>Edit action</h1></center><div class="row">
+<div class="col-md-6 col-md-offset-3">
+<div class="well">
+<%= form_for :event_action, url:action_edit_path(@event_action),method: :put do |f| %>
+      <%= f.label :Title %>
+  <%= f.text_field :event_title, class: "form-control",:disabled=>true%>          <%= f.label :venue %>
+  <%= f.text_field :venue, class: "form-control",:disabled=>true %>      <%= f.label :Description %>
+  <%= f.text_area :description, size: "10x3", class: "form-control",:disabled=>true %>
+  <%= f.label :participants %><br /></p> 
+   <p>
+ <ul>
+<% User.all.each do |d|%>
+         <%= check_box_tag "participant[]", d.id%>
+         <%= d.first_name %><br>
+
+<% end %>
+</ul>
+</p>
+       <%= f.label :Date %>
+  <div class="datetime_select">
+    <%= select_month Time.now, prefix: :action,
+                               field_name: :"date(2i)",
+                               class: "form-control" %> /
+    <%= select_day Time.now, prefix: :action,
+                             field_name: :"date(3i)",
+                             class: "form-control" %> /
+    <%= select_year Time.now, prefix: :action,
+                              field_name: :"date(1i)",
+                              start_year: Time.now.year - 1,
+                              class: "form-control" %>
+  </div><br>
+   <%= f.label :action_time %>
+  <div class="datetime_select">
+  <%= select_hour 12, prefix: :action,
+                              field_name: :"date(4i)",
+                              ampm: true,
+                              class: "form-control" %> :
+    <%= select_minute 0, prefix: :action,
+                                field_name: :"date(5i)",
+                                class: "form-control" %>
+   </div>
+<br>
+  <%= f.submit "Create action", class: "btn btn-primary" %>
+<% end %>
+ <% end %>
+</div>
+
+</div>
+</div>

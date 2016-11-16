@@ -1,0 +1,45 @@
+
+<% if flash.any? %>
+<% flash_message = (request.xhr? ? flash.now[ flash.keys.first ] : flash[ flash.keys.first ])
+cls_name = "alert-info"
+if flash.now[:success] || flash[:success] || flash[:notice]
+ cls_name = "alert-success"
+ icon_cls_name = "fa-check" 
+elsif flash.now[:alert] || flash[:alert]
+ cls_name = "alert-warning"
+ icon_cls_name = "fa-exclamation-triangle"
+elsif flash.now[:error] || flash[:error]
+ cls_name = "alert-danger"
+ icon_cls_name = "fa-times" 
+ %>
+ <% end %>
+
+ <% unless flash_message.blank? %>
+ <% if flash_message.is_a? String %>
+   <div class="<%= request.xhr? ? 'pt-10' : 'pt-20' %>">
+   <div class="alert <%= cls_name %> fade in margin-bottom-10" data-alert="alert" id="div_flash_container">
+     <a class="close" data-dismiss='alert' href="#">×</a>
+     <p><i class="fa <%= icon_cls_name %>"></i> 
+       <%= flash_message %></p>
+     </div>
+   </div>
+   <% else %>
+ <% flash_message.each do |f| %>
+   <div class="<%= request.xhr? ? 'pt-10' : 'pt-20' %>">
+   <div class="alert <%= cls_name %> fade in margin-bottom-10" data-alert="alert" id="div_flash_container">
+     <a class="close" data-dismiss='alert' href="#">×</a>
+     <p><i class="fa <%= icon_cls_name %>"></i> 
+       <%= f.to_s.strip %></p>
+     </div>
+   </div>
+   <% end %>
+   <% end %>
+   <% end %>
+   <% end %>
+
+   <script type="text/javascript">
+     $(function() {
+       $(".alert-success").delay(5000).fadeOut("slow");
+       $(".alert-warning, .alert-danger").delay(10000).fadeOut("slow");
+     })
+   </script>

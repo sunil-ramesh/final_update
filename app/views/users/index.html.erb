@@ -1,0 +1,19 @@
+<table>
+<tr>
+<th>First_name</th>
+<th>Last_name</th>
+<th>User_name</th>
+<th>Email</th>
+<th>phone number</th>
+</tr>
+<% @user.each do |b|%>
+<tr>
+
+<td><%=b.first_name%></td>
+<td><%=b.last_name%></td>
+<td><%=b.username%></td>
+<td><%=b.email%></td>
+<td><%=b.phone_number%></td>
+</tr>
+<%end%>
+</table>

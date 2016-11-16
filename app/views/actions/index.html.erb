@@ -1,0 +1,75 @@
+
+
+  
+
+
+
+
+
+ 
+
+<%= link_to "Create", action_new_path, :remote => true, :data => {:toggle => 'modal', :target => "#myModal"}, class: "btn btn-lg btn-primary"%>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+ </div>
+ 
+
+<div class="container">
+
+<% @actions.each do |e| %>
+
+
+
+      
+  
+<div class="well">
+  <strong>Event : </strong><%= link_to e.event_title, '#' %><br>
+  <strong>Organiser :</strong><%= %>
+<br>
+
+<a href="#" data-toggle="modal" data-target="#myModal-<%= e.id%>">Participents</a><br><br>
+<%= link_to 'Edit Event ', action_edit_path(e)  ,"class" => "btn btn-primary"  %>
+
+<div class="status">
+<% if e.status==nil %>
+<div>
+ <span class="green-back white-color">open</span>
+</div> <%else %>
+<div>
+ <span class="red-back white-color">open</span>
+</div>  
+<% end %>
+</div>    
+<div class="container"> <!-- Modal -->
+<div class="modal fade" id="myModal-<%= e.id%>" role="dialog">
+ <div class="modal-dialog">
+
+   <!-- Modal content-->
+   <div class="modal-content">
+     <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal">&times;</button>
+       <h4 class="modal-title">Event : <%= e.event_title  %> </h4>
+     </div>
+     <div class="modal-body">
+    <div class="container">
+          <div class="form-group">
+ <div class="col-md-4">
+<% e.users.each do |user|%>
+   <%= user.first_name%>
+   <% end %>
+      
+     </div>
+     <div class="modal-footer">
+       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+     </div>
+   </div>
+  
+ </div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+          <% end %>
+</div>
+
